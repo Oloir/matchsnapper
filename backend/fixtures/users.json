@@ -1,0 +1,277 @@
+[
+  {
+    "email": "alex@test.com", "username": "alex", "password": "testpass123",
+    "bio": "Бэкенд-разработчик, люблю кофе и хорошее кино",
+    "snapshot": [
+      {"tag": "программирование",      "weight": "S"},
+      {"tag": "веб-разработка",        "weight": "A"},
+      {"tag": "искусственный интеллект","weight": "B"},
+      {"tag": "кофе",                  "weight": "C"},
+      {"tag": "кино",                  "weight": "D"}
+    ]
+  },
+  {
+    "email": "boris@test.com", "username": "boris", "password": "testpass123",
+    "bio": "ML-инженер, читаю философию в свободное время",
+    "snapshot": [
+      {"tag": "искусственный интеллект","weight": "S"},
+      {"tag": "программирование",      "weight": "A"},
+      {"tag": "физика",                "weight": "B"},
+      {"tag": "чтение",                "weight": "C"},
+      {"tag": "философия",             "weight": "D"}
+    ]
+  },
+  {
+    "email": "vika@test.com", "username": "vika", "password": "testpass123",
+    "bio": "UI/UX дизайнер, фотографирую города в путешествиях",
+    "snapshot": [
+      {"tag": "дизайн",                "weight": "S"},
+      {"tag": "фотография",            "weight": "A"},
+      {"tag": "веб-разработка",        "weight": "B"},
+      {"tag": "кофе",                  "weight": "A"},
+      {"tag": "музыка",                "weight": "C"}
+    ]
+  },
+  {
+    "email": "ivan@test.com", "username": "ivan", "password": "testpass123",
+    "bio": "Фанат футбола, болею за ЦСКА",
+    "snapshot": [
+      {"tag": "футбол",                "weight": "S"},
+      {"tag": "баскетбол",             "weight": "A"},
+      {"tag": "хоккей",                "weight": "B"},
+      {"tag": "стритфуд",              "weight": "C"},
+      {"tag": "кино",                  "weight": "D"}
+    ]
+  },
+  {
+    "email": "masha@test.com", "username": "masha", "password": "testpass123",
+    "bio": "Йога и здоровый образ жизни — мой путь",
+    "snapshot": [
+      {"tag": "йога",                  "weight": "S"},
+      {"tag": "бег",                   "weight": "A"},
+      {"tag": "плавание",              "weight": "B"},
+      {"tag": "вегетарианство",        "weight": "C"},
+      {"tag": "чай",                   "weight": "D"}
+    ]
+  },
+  {
+    "email": "dima@test.com", "username": "dima", "password": "testpass123",
+    "bio": "Аниме, манга и настольные игры — моя жизнь",
+    "snapshot": [
+      {"tag": "аниме",                 "weight": "S"},
+      {"tag": "настольные игры",       "weight": "A"},
+      {"tag": "комиксы",               "weight": "B"},
+      {"tag": "кино",                  "weight": "C"},
+      {"tag": "сериалы",               "weight": "D"}
+    ]
+  },
+  {
+    "email": "katya@test.com", "username": "katya", "password": "testpass123",
+    "bio": "Фотограф, влюблена в горы и море",
+    "snapshot": [
+      {"tag": "фотография",            "weight": "S"},
+      {"tag": "горы",                  "weight": "A"},
+      {"tag": "море",                  "weight": "B"},
+      {"tag": "дизайн",                "weight": "C"},
+      {"tag": "кофе",                  "weight": "D"}
+    ]
+  },
+  {
+    "email": "oleg@test.com", "username": "oleg", "password": "testpass123",
+    "bio": "Физик-теоретик, слежу за последними открытиями в астрономии",
+    "snapshot": [
+      {"tag": "физика",                "weight": "S"},
+      {"tag": "астрономия",            "weight": "A"},
+      {"tag": "философия",             "weight": "B"},
+      {"tag": "биология",              "weight": "C"},
+      {"tag": "история",               "weight": "D"}
+    ]
+  },
+  {
+    "email": "anya@test.com", "username": "anya", "password": "testpass123",
+    "bio": "Читаю всё подряд, особенно исторические романы",
+    "snapshot": [
+      {"tag": "чтение",                "weight": "S"},
+      {"tag": "история",               "weight": "A"},
+      {"tag": "философия",             "weight": "B"},
+      {"tag": "театр",                 "weight": "C"},
+      {"tag": "музыка",                "weight": "D"}
+    ]
+  },
+  {
+    "email": "sasha@test.com", "username": "sasha", "password": "testpass123",
+    "bio": "Повар-любитель, собираю рецепты со всего мира",
+    "snapshot": [
+      {"tag": "кулинария",             "weight": "S"},
+      {"tag": "вино",                  "weight": "A"},
+      {"tag": "барбекю",               "weight": "B"},
+      {"tag": "стритфуд",              "weight": "C"},
+      {"tag": "кофе",                  "weight": "D"}
+    ]
+  },
+  {
+    "email": "petya@test.com", "username": "petya", "password": "testpass123",
+    "bio": "Путешественник: горы, моря, джунгли — везде был",
+    "snapshot": [
+      {"tag": "горы",                  "weight": "S"},
+      {"tag": "море",                  "weight": "A"},
+      {"tag": "кемпинг",               "weight": "B"},
+      {"tag": "экзотика",              "weight": "C"},
+      {"tag": "фотография",            "weight": "D"}
+    ]
+  },
+  {
+    "email": "lena@test.com", "username": "lena", "password": "testpass123",
+    "bio": "Музыкант и театрал, пишу рецензии на спектакли",
+    "snapshot": [
+      {"tag": "музыка",                "weight": "S"},
+      {"tag": "театр",                 "weight": "A"},
+      {"tag": "кино",                  "weight": "B"},
+      {"tag": "чтение",                "weight": "C"},
+      {"tag": "рисование",             "weight": "D"}
+    ]
+  },
+  {
+    "email": "kolya@test.com", "username": "kolya", "password": "testpass123",
+    "bio": "Специалист по ИБ, увлекаюсь криптографией",
+    "snapshot": [
+      {"tag": "кибербезопасность",     "weight": "S"},
+      {"tag": "программирование",      "weight": "A"},
+      {"tag": "блокчейн",              "weight": "B"},
+      {"tag": "философия",             "weight": "C"},
+      {"tag": "чтение",                "weight": "D"}
+    ]
+  },
+  {
+    "email": "tanya@test.com", "username": "tanya", "password": "testpass123",
+    "bio": "Марафонец и триатлонист, люблю горные трейлы",
+    "snapshot": [
+      {"tag": "бег",                   "weight": "S"},
+      {"tag": "велоспорт",             "weight": "A"},
+      {"tag": "плавание",              "weight": "B"},
+      {"tag": "горы",                  "weight": "C"},
+      {"tag": "кофе",                  "weight": "D"}
+    ]
+  },
+  {
+    "email": "sergey@test.com", "username": "sergey", "password": "testpass123",
+    "bio": "DevOps-инженер, строю надёжные пайплайны",
+    "snapshot": [
+      {"tag": "devops",                "weight": "S"},
+      {"tag": "программирование",      "weight": "A"},
+      {"tag": "кибербезопасность",     "weight": "B"},
+      {"tag": "кофе",                  "weight": "C"},
+      {"tag": "чай",                   "weight": "D"}
+    ]
+  },
+  {
+    "email": "olga@test.com", "username": "olga", "password": "testpass123",
+    "bio": "Театральный критик и скульптор-любитель",
+    "snapshot": [
+      {"tag": "театр",                 "weight": "S"},
+      {"tag": "рисование",             "weight": "A"},
+      {"tag": "скульптура",            "weight": "B"},
+      {"tag": "музыка",                "weight": "C"},
+      {"tag": "чтение",                "weight": "D"}
+    ]
+  },
+  {
+    "email": "max@test.com", "username": "max", "password": "testpass123",
+    "bio": "Разрабатываю мобильные приложения, слежу за трендами AI",
+    "snapshot": [
+      {"tag": "мобильные приложения",  "weight": "S"},
+      {"tag": "программирование",      "weight": "A"},
+      {"tag": "искусственный интеллект","weight": "B"},
+      {"tag": "дизайн",                "weight": "C"},
+      {"tag": "кофе",                  "weight": "D"}
+    ]
+  },
+  {
+    "email": "nastya@test.com", "username": "nastya", "password": "testpass123",
+    "bio": "Эко-активист, веган, люблю море и природу",
+    "snapshot": [
+      {"tag": "вегетарианство",        "weight": "S"},
+      {"tag": "садоводство",           "weight": "A"},
+      {"tag": "бег",                   "weight": "B"},
+      {"tag": "море",                  "weight": "C"},
+      {"tag": "экзотика",              "weight": "D"}
+    ]
+  },
+  {
+    "email": "roma@test.com", "username": "roma", "password": "testpass123",
+    "bio": "Блокчейн-разработчик и криптоэнтузиаст",
+    "snapshot": [
+      {"tag": "блокчейн",              "weight": "S"},
+      {"tag": "искусственный интеллект","weight": "A"},
+      {"tag": "программирование",      "weight": "B"},
+      {"tag": "кофе",                  "weight": "C"},
+      {"tag": "философия",             "weight": "D"}
+    ]
+  },
+  {
+    "email": "dasha@test.com", "username": "dasha", "password": "testpass123",
+    "bio": "Киноман и сериальщик, готовлю на выходных",
+    "snapshot": [
+      {"tag": "сериалы",               "weight": "S"},
+      {"tag": "кино",                  "weight": "A"},
+      {"tag": "театр",                 "weight": "B"},
+      {"tag": "кулинария",             "weight": "C"},
+      {"tag": "вино",                  "weight": "D"}
+    ]
+  },
+  {
+    "email": "vitya@test.com", "username": "vitya", "password": "testpass123",
+    "bio": "Рыбак и дачник, люблю выезды на природу",
+    "snapshot": [
+      {"tag": "рыбалка",               "weight": "S"},
+      {"tag": "садоводство",           "weight": "A"},
+      {"tag": "кемпинг",               "weight": "B"},
+      {"tag": "барбекю",               "weight": "C"},
+      {"tag": "автопутешествия",       "weight": "D"}
+    ]
+  },
+  {
+    "email": "alina@test.com", "username": "alina", "password": "testpass123",
+    "bio": "Инструктор по йоге, медитирую и пью травяной чай",
+    "snapshot": [
+      {"tag": "йога",                  "weight": "S"},
+      {"tag": "вегетарианство",        "weight": "A"},
+      {"tag": "чай",                   "weight": "B"},
+      {"tag": "музыка",                "weight": "C"},
+      {"tag": "море",                  "weight": "D"}
+    ]
+  },
+  {
+    "email": "grisha@test.com", "username": "grisha", "password": "testpass123",
+    "bio": "Историк, путешествую по музеям мира",
+    "snapshot": [
+      {"tag": "история",               "weight": "S"},
+      {"tag": "философия",             "weight": "A"},
+      {"tag": "чтение",                "weight": "B"},
+      {"tag": "театр",                 "weight": "C"},
+      {"tag": "городской туризм",      "weight": "D"}
+    ]
+  },
+  {
+    "email": "vera@test.com", "username": "vera", "password": "testpass123",
+    "bio": "Тревел-блогер, снимаю видео об удивительных городах",
+    "snapshot": [
+      {"tag": "городской туризм",      "weight": "S"},
+      {"tag": "фотография",            "weight": "A"},
+      {"tag": "экзотика",              "weight": "B"},
+      {"tag": "сериалы",               "weight": "C"},
+      {"tag": "кофе",                  "weight": "D"}
+    ]
+  },
+  {
+    "email": "fed@test.com", "username": "fed", "password": "testpass123",
+    "bio": "Коллекционер монет, фанат аниме и настолок",
+    "snapshot": [
+      {"tag": "коллекционирование",    "weight": "S"},
+      {"tag": "история",               "weight": "A"},
+      {"tag": "аниме",                 "weight": "B"},
+      {"tag": "настольные игры",       "weight": "C"},
+      {"tag": "комиксы",               "weight": "D"}
+    ]
+  }
+]
