@@ -35,3 +35,15 @@ class SimilarityResponse(BaseModel):
     user_id: UUID
     score: float
     common_tags: list[CommonTag]
+
+
+class ViewOut(BaseModel):
+    viewer_id: UUID
+    viewed_id: UUID
+    is_viewed: bool
+
+
+class ContactOut(BaseModel):
+    from_user_id: UUID
+    to_user_id: UUID
+    status: str
