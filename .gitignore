@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+dist/
+.pytest_cache/
+.mypy_cache/
+
+# Env
+.env
+*.env.local
+
+# uv
+backend/.venv/
+
+# Node
+node_modules/
+frontend/dist/
+frontend/.pnpm-store/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Alembic
+backend/alembic/versions/*.pyc
