@@ -1,0 +1,191 @@
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { Layout } from '../components/Layout'
+import { usersApi, type UserMe } from '../api/users'
+import { matchingApi, type SimilarityResponse } from '../api/matching'
+
+const WEIGHT_COLOR: Record<string, string> = {
+  S: 'bg-purple-100 text-purple-700',
+  A: 'bg-blue-100 text-blue-700',
+  B: 'bg-green-100 text-green-700',
+  C: 'bg-yellow-100 text-yellow-700',
+  D: 'bg-gray-100 text-gray-600',
+}
+
+interface SnapshotItem {
+  tag_id: string
+  tag_name: string
+  weight: string
+}
+
+export function UserProfilePage() {
+  const { userId } = useParams<{ userId: string }>()
+  const navigate = useNavigate()
+
+  const [user, setUser] = useState<UserMe | null>(null)
+  const [similarity, setSimilarity] = useState<SimilarityResponse | null>(null)
+  const [snapshot, setSnapshot] = useState<SnapshotItem[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    if (!userId) return
+    Promise.all([
+      usersApi.getPublic(userId),
+      matchingApi.getSimilarity(userId),
+      usersApi.getPublicSnapshot(userId),
+    ])
+      .then(([u, sim, snap]) => {
+        setUser(u)
+        setSimilarity(sim)
+        setSnapshot(snap.items)
+      })
+      .catch(() => setError('Не удалось загрузить профиль'))
+      .finally(() => setLoading(false))
+  }, [userId])
+
+  if (loading) {
+    return (
+      <Layout>
+        <div className="text-center py-24 text-gray-400">Загружаем…</div>
+      </Layout>
+    )
+  }
+
+  if (error || !user || !similarity) {
+    return (
+      <Layout>
+        <div className="text-center py-24 text-gray-400">{error || 'Пользователь не найден'}</div>
+      </Layout>
+    )
+  }
+
+  const pct = Math.round(similarity.score * 100)
+
+  const commonTagIds = new Set(similarity.common_tags.map(ct => ct.tag))
+  const uniqueTags = snapshot.filter(i => !commonTagIds.has(i.tag_name))
+
+  return (
+    <Layout>
+      <div className="max-w-lg mx-auto flex flex-col gap-5">
+        <button
+          onClick={() => navigate(-1)}
+          className="self-start text-sm text-gray-400 hover:text-gray-600 transition-colors"
+        >
+          ← Назад
+        </button>
+
+        {/* Шапка профиля */}
+        <div className="bg-white rounded-2xl border border-gray-200 p-6 flex items-center gap-5">
+          <div className="w-20 h-20 rounded-full bg-indigo-100 overflow-hidden flex-shrink-0">
+            {user.avatar_url ? (
+              <img src={user.avatar_url} alt={user.username} className="w-full h-full object-cover" />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-3xl font-semibold text-indigo-400">
+                {user.username[0].toUpperCase()}
+              </div>
+            )}
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-lg font-semibold text-gray-800">@{user.username}</p>
+            {user.bio
+              ? <p className="mt-1 text-sm text-gray-500">{user.bio}</p>
+              : <p className="mt-1 text-sm text-gray-300 italic">Нет описания</p>
+            }
+          </div>
+        </div>
+
+        {/* Совместимость */}
+        <div className="bg-white rounded-2xl border border-gray-200 p-5 flex flex-col gap-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm font-semibold text-gray-700">Совместимость</h2>
+            <span className="text-2xl font-bold text-indigo-600">{pct}%</span>
+          </div>
+          <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-indigo-400 rounded-full transition-all"
+              style={{ width: `${pct}%` }}
+            />
+          </div>
+
+          {similarity.common_tags.length > 0 ? (
+            <div className="flex flex-col gap-2">
+              <p className="text-xs text-gray-400">Общие интересы</p>
+              <div className="flex flex-col divide-y divide-gray-50">
+                {similarity.common_tags.map(ct => (
+                  <div key={ct.tag} className="flex items-center justify-between py-2">
+                    <span className="text-sm text-gray-700">{ct.tag}</span>
+                    <div className="flex items-center gap-2 text-xs">
+                      <span className={`font-bold px-1.5 py-0.5 rounded ${WEIGHT_COLOR[ct.weight_mine] ?? ''}`}>
+                        {ct.weight_mine}
+                      </span>
+                      <span className="text-gray-300">/</span>
+                      <span className={`font-bold px-1.5 py-0.5 rounded ${WEIGHT_COLOR[ct.weight_theirs] ?? ''}`}>
+                        {ct.weight_theirs}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs text-gray-300">Мой вес / их вес</p>
+            </div>
+          ) : (
+            <p className="text-sm text-gray-400">Общих интересов нет</p>
+          )}
+        </div>
+
+        {/* Слепок пользователя */}
+        {snapshot.length > 0 && (
+          <div className="bg-white rounded-2xl border border-gray-200 p-5 flex flex-col gap-3">
+            <h2 className="text-sm font-semibold text-gray-700">Слепок @{user.username}</h2>
+
+            {similarity.common_tags.length > 0 && (
+              <>
+                <div className="flex flex-col divide-y divide-gray-50">
+                  {snapshot
+                    .filter(i => commonTagIds.has(i.tag_name))
+                    .map(i => (
+                      <div key={i.tag_id} className="flex items-center justify-between py-2">
+                        <span className="text-sm text-gray-700">{i.tag_name}</span>
+                        <span className={`text-xs font-bold px-1.5 py-0.5 rounded ${WEIGHT_COLOR[i.weight] ?? ''}`}>
+                          {i.weight}
+                        </span>
+                      </div>
+                    ))}
+                </div>
+                {uniqueTags.length > 0 && (
+                  <div className="border-t border-gray-100 pt-3 flex flex-col gap-1">
+                    <p className="text-xs text-gray-400 mb-1">Только у них</p>
+                    <div className="flex flex-col divide-y divide-gray-50">
+                      {uniqueTags.map(i => (
+                        <div key={i.tag_id} className="flex items-center justify-between py-2 opacity-60">
+                          <span className="text-sm text-gray-700">{i.tag_name}</span>
+                          <span className={`text-xs font-bold px-1.5 py-0.5 rounded ${WEIGHT_COLOR[i.weight] ?? ''}`}>
+                            {i.weight}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+
+            {similarity.common_tags.length === 0 && (
+              <div className="flex flex-col divide-y divide-gray-50">
+                {snapshot.map(i => (
+                  <div key={i.tag_id} className="flex items-center justify-between py-2">
+                    <span className="text-sm text-gray-700">{i.tag_name}</span>
+                    <span className={`text-xs font-bold px-1.5 py-0.5 rounded ${WEIGHT_COLOR[i.weight] ?? ''}`}>
+                      {i.weight}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </Layout>
+  )
+}

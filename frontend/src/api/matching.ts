@@ -42,9 +42,18 @@ export interface TagList {
   pages: number
 }
 
+export interface SimilarityResponse {
+  user_id: string
+  score: number
+  common_tags: CommonTag[]
+}
+
 export const matchingApi = {
   list: (page = 1, limit = 20) =>
     api.get<MatchList>('/matching', { params: { page, limit } }).then(r => r.data),
+
+  getSimilarity: (userId: string) =>
+    api.get<SimilarityResponse>(`/matching/${userId}`).then(r => r.data),
 }
 
 export const tagsApi = {

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import type { MatchResult } from '../api/matching'
 import { usersApi } from '../api/users'
 
@@ -19,6 +20,7 @@ export function MatchCard({ result }: Props) {
   const [contactSent, setContactSent] = useState(false)
   const [loading, setLoading] = useState(false)
 
+  const navigate = useNavigate()
   const { user, score, common_tags } = result
   const pct = Math.round(score * 100)
 
@@ -51,7 +53,10 @@ export function MatchCard({ result }: Props) {
   }
 
   return (
-    <div className={`bg-white rounded-xl border p-4 flex flex-col gap-3 transition-opacity ${isViewed ? 'opacity-75' : ''}`}>
+    <div
+      onClick={() => navigate(`/users/${user.id}`)}
+      className={`bg-white rounded-xl border p-4 flex flex-col gap-3 cursor-pointer hover:border-indigo-200 hover:shadow-sm transition-all ${isViewed ? 'opacity-75' : ''}`}
+    >
       <div className="flex items-start gap-3">
         <div className="w-12 h-12 rounded-full bg-indigo-100 overflow-hidden flex-shrink-0">
           {user.avatar_url ? (
@@ -101,7 +106,7 @@ export function MatchCard({ result }: Props) {
 
       <div className="flex gap-2 pt-1">
         <button
-          onClick={toggleViewed}
+          onClick={e => { e.stopPropagation(); toggleViewed() }}
           disabled={loading}
           className={`flex-1 text-xs py-1.5 rounded-lg border transition-colors disabled:opacity-50 ${
             isViewed
@@ -112,7 +117,7 @@ export function MatchCard({ result }: Props) {
           {isViewed ? 'Просмотрен ✓' : 'Отметить просмотренным'}
         </button>
         <button
-          onClick={handleContact}
+          onClick={e => { e.stopPropagation(); handleContact() }}
           disabled={loading || contactSent}
           className="flex-1 text-xs py-1.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 transition-colors"
         >

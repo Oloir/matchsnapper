@@ -5,6 +5,7 @@ import { RegisterPage } from './pages/RegisterPage'
 import { ProfilePage } from './pages/ProfilePage'
 import { SnapshotEditorPage } from './pages/SnapshotEditorPage'
 import { MatchesPage } from './pages/MatchesPage'
+import { UserProfilePage } from './pages/UserProfilePage'
 import { useAuthStore } from './store/authStore'
 import { usersApi } from './api/users'
 
@@ -46,6 +47,7 @@ export default function App() {
           <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
           <Route path="/snapshot" element={<RequireAuth><SnapshotEditorPage /></RequireAuth>} />
           <Route path="/matches" element={<RequireAuth><MatchesPage /></RequireAuth>} />
+          <Route path="/users/:userId" element={<RequireAuth><UserProfilePage /></RequireAuth>} />
           <Route path="*" element={<Navigate to="/matches" replace />} />
         </Routes>
       </AuthLoader>

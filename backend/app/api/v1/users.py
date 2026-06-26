@@ -6,8 +6,10 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_session
 from app.models.user import User
+from app.schemas.snapshot import SnapshotOut
 from app.schemas.user import AvatarResponse, UserMe, UserPublic, UserUpdate
 from app.services.auth_service import get_current_user
+from app.services.snapshot_service import get_snapshot
 from app.services.storage_service import storage_service
 
 router = APIRouter()
@@ -69,6 +71,19 @@ async def delete_avatar(
         current_user.avatar_url = None
         session.add(current_user)
         await session.commit()
+
+
+@router.get("/{user_id}/snapshot", response_model=SnapshotOut)
+async def get_user_snapshot(
+    user_id: UUID,
+    _: User = Depends(get_current_user),
+    session: AsyncSession = Depends(get_session),
+):
+    result = await session.execute(select(User).where(User.id == user_id))
+    user = result.scalar_one_or_none()
+    if not user or not user.is_active:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+    return await get_snapshot(session, user_id)
 
 
 @router.get("/{user_id}", response_model=UserPublic)

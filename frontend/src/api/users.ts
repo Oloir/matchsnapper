@@ -33,4 +33,10 @@ export const usersApi = {
 
   sendContact: (userId: string) =>
     api.post(`/users/${userId}/contact`).then(r => r.data),
+
+  getPublic: (userId: string) =>
+    api.get<UserMe>(`/users/${userId}`).then(r => r.data),
+
+  getPublicSnapshot: (userId: string) =>
+    api.get<{ items: { tag_id: string; tag_name: string; weight: string }[] }>(`/users/${userId}/snapshot`).then(r => r.data),
 }
