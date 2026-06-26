@@ -92,3 +92,4 @@ async def delete_item(
     )
     if not result.scalar_one_or_none():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Tag not in snapshot")
+    await session.commit()

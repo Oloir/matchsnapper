@@ -3,13 +3,27 @@ import { WeightSelector } from './WeightSelector'
 
 interface Props {
   item: SnapshotItemOut
+  index: number
+  dragging?: boolean
   onWeightChange: (tagId: string, weight: string) => void
   onDelete: (tagId: string) => void
+  onDragStart: (index: number) => void
+  onDragOver: (e: React.DragEvent, index: number) => void
+  onDragEnd: () => void
 }
 
-export function SnapshotItem({ item, onWeightChange, onDelete }: Props) {
+export function SnapshotItem({ item, index, dragging, onWeightChange, onDelete, onDragStart, onDragOver, onDragEnd }: Props) {
   return (
-    <div className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50">
+    <div
+      draggable
+      onDragStart={() => onDragStart(index)}
+      onDragOver={e => onDragOver(e, index)}
+      onDragEnd={onDragEnd}
+      className={`flex items-center gap-2 py-2 px-3 hover:bg-gray-50 transition-opacity ${dragging ? 'opacity-40' : ''}`}
+    >
+      <span className="text-gray-300 cursor-grab active:cursor-grabbing select-none px-1 text-base leading-none">
+        ⠿
+      </span>
       <span className="flex-1 text-sm text-gray-700">{item.tag_name}</span>
       <WeightSelector
         value={item.weight}
