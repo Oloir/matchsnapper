@@ -453,7 +453,7 @@ matchsnapper/
 cd backend
 uv sync                                  # установить зависимости из uv.lock
 uv run alembic upgrade head
-uv run uvicorn app.main:app --reload --port 8000
+uv run uvicorn app.main:app --reload --port 9070
 uv run pytest -v
 uv run python fixtures/load_fixtures.py
 
@@ -464,7 +464,7 @@ uv add --dev pytest httpx
 ### Frontend
 cd frontend
 pnpm install
-pnpm dev        # порт 5173, proxy → localhost:8000
+pnpm dev        # порт 3070, proxy → localhost:9070
 
 ### Infra
 docker compose up -d    # PostgreSQL + MinIO
