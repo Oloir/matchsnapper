@@ -15,22 +15,15 @@ MinIO-консоль: http://localhost:9001 — логин `minioadmin` / `minio
 
 ### 2. Бэкенд
 
+Все команды выполнять из папки `backend/`:
+
 ```bash
 cd backend
 
-# Скопировать и настроить переменные окружения
-cp .env.example .env
-
-# Установить зависимости
-uv sync
-
-# Применить миграции
+cp .env.example .env      # настроить переменные окружения
+uv sync                   # установить зависимости
 uv run alembic upgrade head
-
-# Загрузить фикстуры (51 тег, 25 пользователей)
-uv run python fixtures/load_fixtures.py
-
-# Запустить сервер
+uv run python fixtures/load_fixtures.py   # 51 тег, 25 пользователей
 uv run uvicorn app.main:app --reload --port 9070
 ```
 
