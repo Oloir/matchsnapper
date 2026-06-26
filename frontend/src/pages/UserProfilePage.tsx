@@ -27,6 +27,7 @@ export function UserProfilePage() {
   const [snapshot, setSnapshot] = useState<SnapshotItem[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [infoOpen, setInfoOpen] = useState(false)
 
   useEffect(() => {
     if (!userId) return
@@ -62,9 +63,6 @@ export function UserProfilePage() {
 
   const pct = Math.round(similarity.score * 100)
 
-  const commonTagIds = new Set(similarity.common_tags.map(ct => ct.tag))
-  const uniqueTags = snapshot.filter(i => !commonTagIds.has(i.tag_name))
-
   return (
     <Layout>
       <div className="max-w-lg mx-auto flex flex-col gap-5">
@@ -98,7 +96,23 @@ export function UserProfilePage() {
         {/* Совместимость */}
         <div className="bg-white rounded-2xl border border-gray-200 p-5 flex flex-col gap-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-gray-700">Совместимость</h2>
+            <div className="flex items-center gap-1.5">
+              <h2 className="text-sm font-semibold text-gray-700">Совместимость</h2>
+              <div
+                className="relative"
+                onMouseEnter={() => setInfoOpen(true)}
+                onMouseLeave={() => setInfoOpen(false)}
+              >
+                <div className="w-4 h-4 rounded-full bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-gray-600 text-[10px] font-bold flex items-center justify-center cursor-default transition-colors">
+                  ?
+                </div>
+                {infoOpen && (
+                  <div className="absolute left-0 top-6 z-20 w-64 bg-white border border-gray-200 rounded-xl shadow-lg p-3 text-xs text-gray-500 leading-relaxed">
+                    Показатель рассчитывается по косинусному сходству слепков: каждый тег — это ось, вес (S=5, A=4, B=3, C=2, D=1) — значение. Чем ближе направления двух векторов интересов, тем выше процент. 100% — полное совпадение всех тегов и весов.
+                  </div>
+                )}
+              </div>
+            </div>
             <span className="text-2xl font-bold text-indigo-600">{pct}%</span>
           </div>
           <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
@@ -110,7 +124,10 @@ export function UserProfilePage() {
 
           {similarity.common_tags.length > 0 ? (
             <div className="flex flex-col gap-2">
-              <p className="text-xs text-gray-400">Общие интересы</p>
+              <div className="flex items-center justify-between">
+                <p className="text-xs text-gray-400">Общие интересы</p>
+                <p className="text-xs text-gray-300">Мой / {user.username}</p>
+              </div>
               <div className="flex flex-col divide-y divide-gray-50">
                 {similarity.common_tags.map(ct => (
                   <div key={ct.tag} className="flex items-center justify-between py-2">
@@ -127,7 +144,6 @@ export function UserProfilePage() {
                   </div>
                 ))}
               </div>
-              <p className="text-xs text-gray-300">Мой вес / их вес</p>
             </div>
           ) : (
             <p className="text-sm text-gray-400">Общих интересов нет</p>
@@ -138,51 +154,16 @@ export function UserProfilePage() {
         {snapshot.length > 0 && (
           <div className="bg-white rounded-2xl border border-gray-200 p-5 flex flex-col gap-3">
             <h2 className="text-sm font-semibold text-gray-700">Слепок @{user.username}</h2>
-
-            {similarity.common_tags.length > 0 && (
-              <>
-                <div className="flex flex-col divide-y divide-gray-50">
-                  {snapshot
-                    .filter(i => commonTagIds.has(i.tag_name))
-                    .map(i => (
-                      <div key={i.tag_id} className="flex items-center justify-between py-2">
-                        <span className="text-sm text-gray-700">{i.tag_name}</span>
-                        <span className={`text-xs font-bold px-1.5 py-0.5 rounded ${WEIGHT_COLOR[i.weight] ?? ''}`}>
-                          {i.weight}
-                        </span>
-                      </div>
-                    ))}
+            <div className="flex flex-col divide-y divide-gray-50">
+              {snapshot.map(i => (
+                <div key={i.tag_id} className="flex items-center justify-between py-2">
+                  <span className="text-sm text-gray-700">{i.tag_name}</span>
+                  <span className={`text-xs font-bold px-1.5 py-0.5 rounded ${WEIGHT_COLOR[i.weight] ?? ''}`}>
+                    {i.weight}
+                  </span>
                 </div>
-                {uniqueTags.length > 0 && (
-                  <div className="border-t border-gray-100 pt-3 flex flex-col gap-1">
-                    <p className="text-xs text-gray-400 mb-1">Только у них</p>
-                    <div className="flex flex-col divide-y divide-gray-50">
-                      {uniqueTags.map(i => (
-                        <div key={i.tag_id} className="flex items-center justify-between py-2 opacity-60">
-                          <span className="text-sm text-gray-700">{i.tag_name}</span>
-                          <span className={`text-xs font-bold px-1.5 py-0.5 rounded ${WEIGHT_COLOR[i.weight] ?? ''}`}>
-                            {i.weight}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </>
-            )}
-
-            {similarity.common_tags.length === 0 && (
-              <div className="flex flex-col divide-y divide-gray-50">
-                {snapshot.map(i => (
-                  <div key={i.tag_id} className="flex items-center justify-between py-2">
-                    <span className="text-sm text-gray-700">{i.tag_name}</span>
-                    <span className={`text-xs font-bold px-1.5 py-0.5 rounded ${WEIGHT_COLOR[i.weight] ?? ''}`}>
-                      {i.weight}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
+              ))}
+            </div>
           </div>
         )}
       </div>
