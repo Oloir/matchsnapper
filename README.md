@@ -10,8 +10,8 @@
 docker compose up -d
 ```
 
-Поднимает PostgreSQL (5432) и MinIO (9000 API, 9001 консоль).  
-MinIO-консоль: http://localhost:9001 — логин `minioadmin` / `minioadmin`
+Поднимает PostgreSQL (5433) и MinIO (9010 API, 9011 консоль).  
+MinIO-консоль: http://localhost:9011 — логин `minioadmin` / `minioadmin`
 
 ### 2. Бэкенд
 

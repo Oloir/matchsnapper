@@ -28,6 +28,8 @@ export function UserProfilePage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [infoOpen, setInfoOpen] = useState(false)
+  const [contactSent, setContactSent] = useState(false)
+  const [contactLoading, setContactLoading] = useState(false)
 
   useEffect(() => {
     if (!userId) return
@@ -63,6 +65,18 @@ export function UserProfilePage() {
 
   const pct = Math.round(similarity.score * 100)
 
+  async function handleContact() {
+    setContactLoading(true)
+    try {
+      await usersApi.sendContact(user.id)
+      setContactSent(true)
+    } catch {
+      setContactSent(true) // 409 = already sent
+    } finally {
+      setContactLoading(false)
+    }
+  }
+
   return (
     <Layout>
       <div className="max-w-lg mx-auto flex flex-col gap-5">
@@ -90,6 +104,13 @@ export function UserProfilePage() {
               ? <p className="mt-1 text-sm text-gray-500">{user.bio}</p>
               : <p className="mt-1 text-sm text-gray-300 italic">Нет описания</p>
             }
+            <button
+              onClick={handleContact}
+              disabled={contactLoading || contactSent}
+              className="mt-3 px-4 py-1.5 text-sm rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 transition-colors"
+            >
+              {contactSent ? 'Запрос отправлен ✓' : 'Написать'}
+            </button>
           </div>
         </div>
 

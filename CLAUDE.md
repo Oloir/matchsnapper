@@ -467,8 +467,8 @@ pnpm install
 pnpm dev        # порт 3070, proxy → localhost:9070
 
 ### Infra
-docker compose up -d    # PostgreSQL + MinIO
-# MinIO console: http://localhost:9001 (minioadmin / minioadmin)
+docker compose up -d    # PostgreSQL (5433) + MinIO (9010 API, 9011 console)
+# MinIO console: http://localhost:9011 (minioadmin / minioadmin)
 
 ## Env
 DATABASE_URL=postgresql+asyncpg://matchsnapper:matchsnapper@localhost:5432/matchsnapper
