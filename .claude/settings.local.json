@@ -10,7 +10,24 @@
       "Bash(pnpm install *)",
       "Bash(pnpm add *)",
       "Bash(uv run *)",
-      "Bash(pnpm build *)"
+      "Bash(pnpm build *)",
+      "Bash(docker compose *)",
+      "Bash(docker exec *)",
+      "Bash(psql -U oloir -d postgres -c \"CREATE USER matchsnapper WITH PASSWORD 'matchsnapper';\")",
+      "Bash(psql -U oloir -d postgres -c \"CREATE DATABASE matchsnapper OWNER matchsnapper;\")",
+      "Bash(psql *)",
+      "Bash(git *)",
+      "Bash(uv pip *)",
+      "Bash(pnpm dev *)",
+      "Bash(curl -s http://localhost:5173)",
+      "Bash(curl -s -X POST http://localhost:8000/api/v1/auth/login -H 'Content-Type: application/json' -d '{\"email\":\"alex@test.com\",\"password\":\"testpass123\"}')",
+      "Bash(python3 -m json.tool)",
+      "Bash(curl -s http://localhost:8000/health)",
+      "Bash(curl -s http://localhost:8000/api/v1/auth/login -X POST -H \"Content-Type: application/json\" -d '{\"email\":\"a\",\"password\":\"b\"}')",
+      "Bash(ps *)",
+      "Bash(DATABASE_URL=postgresql+asyncpg://matchsnapper:matchsnapper@localhost:5432/matchsnapper uv run uvicorn app.main:app --port 8001)",
+      "Bash(curl -s http://localhost:8001/health)",
+      "Bash(curl -s -X POST http://localhost:8001/api/v1/auth/login -H 'Content-Type: application/json' -d '{\"email\":\"alex@test.com\",\"password\":\"testpass123\"}')"
     ]
   }
 }
